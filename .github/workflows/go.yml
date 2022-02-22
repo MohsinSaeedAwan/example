@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  Build_Deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,8 +19,8 @@ jobs:
         go-version: 1.17
       
     - name: Build binary
-      run:  pwd && ls && cd outyet && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -o main main.go && zip deployment.zip main
-    
+      run:  pwd && ls && cd hello && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -o main hello.go && zip deployment.zip hello
+      
     - name: AWS Lambda Deploy
       uses: appleboy/lambda-action@v0.1.5
       with:
@@ -31,6 +31,7 @@ jobs:
           zip_file: outyet/deployment.zip
           memory_size: 128
           timeout: 10
+          handler: main
       #    role: arn:aws:lambda:eu-north-1:069701959689:function:gorush
           runtime: go1.x
           dry_run: true
