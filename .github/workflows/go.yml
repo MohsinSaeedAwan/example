@@ -33,5 +33,5 @@ jobs:
           timeout: 10
           handler: main
       #    role: arn:aws:lambda:eu-north-1:069701959689:function:gorush
-          runtime: go1.17
+          runtime: go1.x
           dry_run: true
